@@ -1,6 +1,10 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
+import { db } from "@/db";
+import { Invoices } from "@/db/schema";
+import { sql } from "drizzle-orm";
+
 import {
     Table,
     TableBody,
@@ -14,7 +18,10 @@ import { CirclePlus } from "lucide-react";
 
 import Link from "next/link";
 
-export default function dashboard() {
+export default async function dashboard() {
+    const results = await db.select().from(Invoices);
+    // const results = await db.execute(sql`select * from invoices`);
+    console.log("results", results);
     return (
         <main className="flex flex-col min-h-screen items-center gap-6 max-w-5xl mx-auto px-4">
             <h1 className="text-5xl font-bold">
